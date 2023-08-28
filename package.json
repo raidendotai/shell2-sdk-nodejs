@@ -1,0 +1,28 @@
+{
+  "name": "shell2",
+  "version": "1.0.0",
+  "description": "nodejs sdk for shell2.raiden.ai",
+  "main": "Shell2Client.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raidendotai/shell2-sdk-nodejs.git"
+  },
+  "keywords": [
+    "shell2",
+    "raiden",
+    "ai",
+    "sandbox"
+  ],
+  "author": "raiden.ai",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/raidendotai/shell2-sdk-nodejs/issues"
+  },
+  "homepage": "https://github.com/raidendotai/shell2-sdk-nodejs#readme",
+  "dependencies": {
+    "axios": "^1.4.0"
+  }
+}
