@@ -2,7 +2,7 @@
   "name": "shell2",
   "version": "1.0.0",
   "description": "nodejs sdk for shell2.raiden.ai",
-  "main": "Shell2Client.js",
+  "main": "shell2.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
