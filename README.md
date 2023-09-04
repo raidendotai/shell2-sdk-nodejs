@@ -47,7 +47,7 @@ shell2 sequences allow you to run a predefined list of consecutive tasks
 
 Creates a new sequence task and returns **sequenceId** which can be used to retrieve execution data.
 
-```
+```js
 const response =  await shell2_client.sequence.run({
     timeout: 300, // timeout in seconds
     public: false, // optional - make sequence public
@@ -63,7 +63,8 @@ console.dir(response)
 ```
 
 example output
-```
+
+```json
 {
   "status": true,
   "sequenceId": "ba891586-311d-48fa-8803-5cb2abbe7859"
@@ -74,7 +75,7 @@ example output
 
 sequence data contains both metadata regarding the execution state (done, timestamps, ...) and all the generated data, including files if applies
 
-```
+```js
 const response = await shell2_client.sequence.get({
     sequenceId: `ba891586-311d-48fa-8803-5cb2abbe7859`,
 })
@@ -83,7 +84,8 @@ console.dir(response)
 ```
 
 example output
-```
+
+```json
 {
   "sequenceId": "73f59ae1-9306-4dda-9e1e-ceede23d0193",
   "metadata": {
@@ -207,14 +209,15 @@ example output
 
 #### List created sequences
 
-```
+```js
 const response =  await shell2_client.sequence.list()
 
 console.dir(response)
 ```
 
 example output
-```
+
+```json
 {
   "sequences": [
     {
@@ -243,7 +246,7 @@ example output
 
 update a sequence's public status
 
-```
+```js
 const response =  await shell2_client.sequence.update({
     sequenceId: `17cbfab7-cc61-4be3-860c-25e146bc4813`,
     public: true,
@@ -253,7 +256,7 @@ console.dir(response)
 ```
 
 example output
-```
+```json
 {
   "status": true,
   "sequence": {
@@ -289,7 +292,7 @@ shell2 sessions are live sessions with optional multiplayer, that users can inte
 
 Creates a new live session and returns **sessionId** which can be used to retrieve execution data.
 
-```
+```js
 const response =  await shell2_client.session.new({
     timeout: 300, // timeout in seconds
     multiplayer: false,
@@ -299,7 +302,7 @@ console.dir(response)
 ```
 
 example output
-```
+```json
 {
   "status": true,
   "sessionId": "b69fa27e-78f6-43c0-b0dd-8af9cd8c3853"
@@ -312,7 +315,7 @@ send a message in an active session. you need to specify the new message and the
 
 if the target session is another user's multiplayer-enabled session, you need to specify the user's email
 
-```
+```js
 const response =  await shell2_client.session.message({
     message : '/m tell me about the wu tang clan',
     sessionId: 'b69fa27e-78f6-43c0-b0dd-8af9cd8c3853',    
@@ -323,7 +326,7 @@ console.dir(response)
 ```
 
 example output
-```
+```json
 {
   "status": true,
   "session": {
@@ -342,7 +345,7 @@ example output
 
 session data contains both metadata regarding the execution state (done, timestamps, ...) and all the generated data, including files if applies
 
-```
+```js
 const response = await shell2_client.session.get({
     sessionId: `ba891586-311d-48fa-8803-5cb2abbe7859`,
 })
@@ -351,7 +354,7 @@ console.dir(response)
 ```
 
 example output
-```
+```json
 {
   "sessionId": "b69fa27e-78f6-43c0-b0dd-8af9cd8c3853",
   "metadata": {
@@ -476,7 +479,7 @@ example output
 
 Resume a previous session, using a previous **sessionId** , which recovers the full state of the previous session
 
-```
+```js
 const response =  await shell2_client.session.resume({
     timeout: 300, // timeout in seconds
     multiplayer: true, // optional - multiplayer mode
@@ -487,7 +490,7 @@ console.dir(response)
 ```
 
 example output
-```
+```json
 {
   "status": true,
   "sessionId": "b69fa27e-78f6-43c0-b0dd-8af9cd8c3853"
@@ -497,14 +500,14 @@ example output
 #### List created sessions
 
 
-```
+```js
 const response =  await shell2_client.session.list()
 
 console.dir(response)
 ```
 
 example output
-```
+```json
 {
   "sessions": [
     {
@@ -544,7 +547,7 @@ example output
 
 update a session's multiplayer status
 
-```
+```js
 const response =  await shell2_client.session.update({
     sequenceId: `b69fa27e-78f6-43c0-b0dd-8af9cd8c3853`,
     multiplayer: true,
@@ -554,7 +557,7 @@ console.dir(response)
 ```
 
 example output
-```
+```json
 {
   "status": true,
   "session": {
@@ -587,14 +590,14 @@ user settings determine what LLMs to use, associated API keys and context config
 
 fetches the currently stored settings
 
-```
+```js
 const response =  await shell2_client.settings.get()
 
 console.dir(response)
 ```
 
 example output
-```
+```json
 {
   "status": true,
   "settings": {
@@ -633,7 +636,7 @@ support for more LLMs, notably via huggingface inference available soon
 for the message prompt, which is used as a prompt to generate code, make sure it contains the **{{USER_MESSAGE}}** string that will be replaced with your task query in the sandbox
 
 
-```
+```js
 const response =  await shell2_client.settings.update({
     llm: "openai/gpt-4",
     prompts: {
@@ -661,7 +664,7 @@ console.dir(response)
 ```
 
 example output
-```
+```json
 {
   "status": true,
   "settings": {
@@ -693,7 +696,7 @@ example output
 
 resets settings to default, without overriding stored api keys in keystore
 
-```
+```js
 const response =  await shell2_client.settings.reset()
 
 console.dir(response)
@@ -709,6 +712,7 @@ your uploaded files can be used inside of sessions and sequences like this:
 ```
 /doc uploads://my_uploaded_doc.pdf summarize the document in 1 paragraph
 ```
+
 ```
 /file uploads://my_audio.mp3
 convert my_audio.mp3 to wav
@@ -719,7 +723,7 @@ convert my_audio.mp3 to wav
 
 you can upload a file to storage like this
 
-```
+```js
 await shell2_client.storage.upload({
     filepath : './musicgen.mp3', // file path relative to node script
     filename : 'test_audio.mp3', // optional - target filename
@@ -728,7 +732,7 @@ await shell2_client.storage.upload({
 
 #### List stored uploads
 
-```
+```js
 await shell2_client.storage.list({})
 ```
 
@@ -737,7 +741,7 @@ await shell2_client.storage.list({})
 
 to get a signed download URL for a file you previously uploaded
 
-```
+```js
 await shell2_client.storage.download({
     filename : 'test_audio.mp3', // file you previously uploaded
 })
@@ -745,7 +749,7 @@ await shell2_client.storage.download({
 
 to get a list of signed download URLs of files generated in a session
 
-```
+```js
 await shell2_client.storage.download({
     sessionId: `2b2df275-8e12-4982-b012-174529f27b13`,
     user: `session_owner@raiden.ai`, // optional - if the target session is owned by another user and has multiplayer enabled
@@ -754,7 +758,7 @@ await shell2_client.storage.download({
 
 to get a list of signed download URLs of files generated in a sequence
 
-```
+```js
 await shell2_client.storage.download({
     sequenceId: `ba891586-311d-48fa-8803-5cb2abbe7859`,
     user: `session_owner@raiden.ai`, // optional - if the target sequence is owned by another user and is public
