@@ -9,13 +9,13 @@ for any questions or enquiries, feel free to contact via email or on twitter [@n
 ### Installation & Usage
 
 Install shell2 as follows
-```
+```shell
 npm i --save shell2
 ```
 
 You can then use it as follows
 
-```
+```js
 const shell2 = require(`shell2`);
 const shell2_client = new shell2('yourapikey-123456');
 
